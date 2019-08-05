@@ -1488,10 +1488,21 @@ void ScenarioCreator::spawn_peds(Vector3 pos, int num_ped) {
 
 	// spawning 'num_ped' pedestrians
 	for (int i = 0; i<num_ped; i++) {
+		
+		//if (PED::CAN_CREATE_RANDOM_DRIVER()) {
 		ped[i] = PED::CREATE_RANDOM_PED(pos.x, pos.y, pos.z);
+		//}
+		//DWORD model = GAMEPLAY::GET_HASH_KEY((char*)"NINEF");
+	    /*STREAMING::REQUEST_MODEL(model);
+		while (!STREAMING::HAS_MODEL_LOADED(model)) WAIT(0);
+		Vehicle veh = VEHICLE::CREATE_VEHICLE(model, pos.x, pos.y, pos.z, 0.0, 1, 1);
+		VEHICLE::SET_VEHICLE_ON_GROUND_PROPERLY(veh);
+		ped[i] = PED::CREATE_RANDOM_PED_AS_DRIVER(veh, true);
+		PED::SET_PED_INTO_VEHICLE(ped[i], veh, 1);*/
 		WAIT(50);
 	}
-
+	//ped[num_ped-1] = PED::CREATE_PED(1, 1206185632, pos.x, pos.y, pos.z, 1.5, true, true);
+	//WAIT(50);
 
 	// killing all pedestrians in order to prevent a bug
 	for (int i = 0; i<num_ped; i++) {

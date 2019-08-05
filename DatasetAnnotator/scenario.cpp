@@ -14,9 +14,9 @@
 
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
-#define TIME_FACTOR 12.0
-#define FPS 30
-#define DISPLAY_FLAG FALSE
+#define TIME_FACTOR 1.0
+//#define FPS 10
+#define DISPLAY_FLAG TRUE
 #define WANDERING_RADIUS 10.0
 #define MAX_PED_TO_CAM_DISTANCE 100.0
 #define DEMO FALSE
@@ -172,6 +172,8 @@ DatasetAnnotator::DatasetAnnotator(std::string _output_path, const char* _file_s
 	joint_int_codes[18] = m.find("SKEL_L_Thigh")->second;
 	joint_int_codes[19] = m.find("SKEL_L_Calf")->second;
 	joint_int_codes[20] = m.find("SKEL_L_Foot")->second;
+	joint_int_codes[21] = m.find("FB_L_Eye_000")->second;
+	joint_int_codes[22] = m.find("FB_R_Eye_000")->second;
 
 	// inizialize the coords_file used to storage coords data
 	log_file.open(output_path + "\\log.txt");
@@ -635,7 +637,10 @@ void DatasetAnnotator::save_frame() {
 	std::wstring ws;
 	StringToWString(ws, output_path);
 
-	image.Save((ws + L"\\" + std::to_wstring(nsample) + L".jpeg").c_str(), &pngClsid, NULL);
+	int max_len = 4;
+	int fill = max_len - std::to_wstring(nsample).length();
+	std::wstring str = std::wstring(fill, '0');
+	image.Save((ws + L"\\" + str + std::to_wstring(nsample) + L".jpeg").c_str(), &pngClsid, NULL);
 }
 
 void DatasetAnnotator::setCameraMoving(Vector3 A, Vector3 B, Vector3 C, int fov) {

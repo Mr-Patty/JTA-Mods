@@ -25,11 +25,13 @@ void record() {
 
 	_mkdir(path);
 
-	int max_samples = 30 * 60 * 1 + 1;
+	int max_samples = 1 * 60 * FPS + 1;
+	int max_len = max_samples % 10;
 	DatasetAnnotator* S;
 
 	int seq_number = 0;
 
+	
 	// Day sequences
 	for (auto &p : fs::recursive_directory_iterator(scenarios_path)) {
 		if (fs::is_regular_file(p)) {
@@ -59,6 +61,7 @@ void record() {
 				nsamples = (*S).update();
 				WAIT(0);
 			}
+			//.'C:\Users\vlabs\Documents\ffmpeg-4.1.3-win64-static\bin\ffmpeg.exe' -framerate 30 -i %04d.jpeg output.mp4
 			delete static_cast <DatasetAnnotator *>(S);
 			seq_number++;
 		}

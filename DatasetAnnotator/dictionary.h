@@ -61,7 +61,9 @@ static const std::map< std::string, int > m = {
 	{ "SKEL_R_Finger41", 0xfa50 },
 	{ "SKEL_R_Finger42", 0xfa51 },
 	{ "SKEL_Neck_1", 0x9995 },
-	{ "SKEL_Head", 0x796e }
+	{ "SKEL_Head", 0x796e },
+	{ "FB_L_Eye_000", 0x62ac},
+	{ "FB_R_Eye_000", 0x6b52}
 };
 
 

@@ -15,9 +15,10 @@
 #include "keyboard.h"
 
 #pragma comment (lib,"Gdiplus.lib")
+#define FPS 20
 
 const int max_number_of_peds = 1024;					// size of the pedestrians array
-const int number_of_joints = 21;							// size of the joint_ID subset
+const int number_of_joints = 23;							// size of the joint_ID subset
 const float JOINT_DELTA = 0;
 const int max_wpeds = 300;
 
@@ -63,6 +64,7 @@ private:
 	int nwPeds_scenario = 0;
 	int moving;
 	Vector3 A, B, C;
+	int cnt;
 
 	int windowWidth;
 	int windowHeight;
