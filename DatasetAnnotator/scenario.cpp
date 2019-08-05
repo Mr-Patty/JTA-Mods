@@ -95,6 +95,7 @@ int StringToWString(std::wstring &ws, const std::string &s)
 
 DatasetAnnotator::DatasetAnnotator(std::string _output_path, const char* _file_scenario, int _max_samples, int _is_night)
 {
+	this->cnt = 0;
 	PLAYER::SET_EVERYONE_IGNORE_PLAYER(PLAYER::PLAYER_PED_ID(), TRUE);
 	PLAYER::SET_POLICE_IGNORE_PLAYER(PLAYER::PLAYER_PED_ID(), TRUE);
 	PLAYER::CLEAR_PLAYER_WANTED_LEVEL(PLAYER::PLAYER_PED_ID());
@@ -413,6 +414,19 @@ int DatasetAnnotator::update()
 		else if (!ENTITY::IS_ENTITY_VISIBLE(peds[i])) {
 			//log_file << "invisibile\n";
 			continue;
+		}
+
+		this->cnt++;
+		log_file << this->cnt << "\n";
+		if (this->cnt % 100 == 0) {
+			log_file << "kill\n";
+			ENTITY::SET_ENTITY_HEALTH(peds[i], 0);
+			//WAIT(50);
+		}
+		if (this->cnt % 1000 == 0) {
+			log_file << "revive\n";
+			PED::RESURRECT_PED(peds[i]);
+			PED::REVIVE_INJURED_PED(peds[i]);
 		}
 
 		Vector3 ped_coords = ENTITY::GET_ENTITY_COORDS(peds[i], TRUE);
