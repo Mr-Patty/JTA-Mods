@@ -21,10 +21,13 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="script.cpp">
+    <ClCompile Include="scenario.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scenario.cpp">
+    <ClCompile Include="script-2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="script.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

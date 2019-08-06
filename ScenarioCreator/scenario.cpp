@@ -946,7 +946,7 @@ void ScenarioCreator::camera_menu()
 void ScenarioCreator::place_menu()
 {
 	const float lineWidth = 250.0;
-	const int lineCount = 16;
+	const int lineCount = 20;
 	menuActive = true;
 
 	std::string caption = "PLACE";
@@ -972,7 +972,11 @@ void ScenarioCreator::place_menu()
 		{ "MILITARY BASE", -2047.4f, 3132.1f, 32.8f },
 		{ "MCKENZIE AIRFIELD", 2121.7f, 4796.3f, 41.1f },
 		{ "DESERT AIRFIELD", 1747.0f, 3273.7f, 41.1f },
-		{ "CHILLIAD", 425.4f, 5614.3f, 766.5f }
+		{ "CHILLIAD", 425.4f, 5614.3f, 766.5f },
+		{"Police Station", 436.491f, -982.172f, 30.699f },
+		{"Yankton Ontop of Mill", 3517.079f, -4635.83f, 138.901f},
+		{"Sunken Body X", -3161.078f, 3001.998f, -37.974f},
+		{"Underwater Hatch", 4273.95f, 2975.714f, -170.746f}
 	};
 
 	DWORD waitTime = 150;
@@ -1576,8 +1580,10 @@ void ScenarioCreator::spawn_peds(Vector3 pos, int num_ped) {
 				AI::TASK_CHAT_TO_PED(ped[i], targetPed, 16, 0.0, 0.0, 0.0, 0.0, 0.0);
 			break;
 		case 6:
-			if (i>0)
-				AI::TASK_COMBAT_PED(ped[i], ped[0], 0, 16);
+			if (i > 0) {
+				AI::TASK_COMBAT_PED(ped[i], ped[i -	1], 0, 16);
+				AI::TASK_COMBAT_PED(ped[i - 1], ped[i], 0, 16);
+			}
 			break;
 		case 7:
 			AI::TASK_STAY_IN_COVER(ped[i]);
