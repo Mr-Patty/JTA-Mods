@@ -391,10 +391,12 @@ int DatasetAnnotator::update()
 	//this->fov = CAM::GET_GAMEPLAY_CAM_FOV();
 
 	// scan all the pedestrians taken
+	this->cnt++;
+	//log_file << this->cnt << "\n";
 	for (int i = 0; i < number_of_peds; i++){
 
 		// ignore pedestrians in vehicles or dead pedestrians
-		if(PED::IS_PED_IN_ANY_VEHICLE(peds[i], TRUE) || PED::IS_PED_DEAD_OR_DYING(peds[i], TRUE)) {
+		if(PED::IS_PED_IN_ANY_VEHICLE(peds[i], TRUE)) {
 			//log_file << "veicolo o morto\n";
 			continue;
 		}
@@ -415,19 +417,25 @@ int DatasetAnnotator::update()
 			//log_file << "invisibile\n";
 			continue;
 		}
-
-		this->cnt++;
-		log_file << this->cnt << "\n";
-		if (this->cnt % 100 == 0) {
+		//  || PED::IS_PED_DEAD_OR_DYING(peds[i], TRUE)
+		if (this->cnt % 150 == 0) {
 			log_file << "kill\n";
+			//AI::TASK_JUMP(peds[i], TRUE);
+			//WAIT(50);
 			ENTITY::SET_ENTITY_HEALTH(peds[i], 0);
+			/*if (i < number_of_peds - 1) {
+				AI::TASK_COMBAT_PED(peds[i], peds[i + 1], 0, 16);
+				AI::TASK_PUT_PED_DIRECTLY_INTO_MELEE(peds[i], peds[i + 1], 0, -1, 0, TRUE);
+				//AI::TASK_PUT_PED_DIRECTLY_INTO_MELEE(peds[i + 1], peds[i], 0.1, 0.1, 0.1, TRUE);
+			}*/
+			//AI::TASK_COMBAT_HATED_TARGETS_AROUND_PED(peds[i], 16, 0);
 			//WAIT(50);
 		}
-		if (this->cnt % 1000 == 0) {
+		/*if (this->cnt % 100 == 0) {
 			log_file << "revive\n";
 			PED::RESURRECT_PED(peds[i]);
 			PED::REVIVE_INJURED_PED(peds[i]);
-		}
+		}*/
 
 		Vector3 ped_coords = ENTITY::GET_ENTITY_COORDS(peds[i], TRUE);
 		float ped2cam_distance = GAMEPLAY::GET_DISTANCE_BETWEEN_COORDS(
